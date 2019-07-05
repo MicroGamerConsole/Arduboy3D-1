@@ -1,23 +1,23 @@
-#include <Arduboy2.h>
-#include <ArduboyTones.h>
+#include <MicroGamer.h>
+#include <MicroGamerTones.h>
 #include "Game.h"
 #include "Draw.h"
 #include "FixedMath.h"
 #include "Platform.h"
 
-Arduboy2Base arduboy;
-ArduboyTones sound(arduboy.audio.enabled);
+MicroGamer arduboy;
+MicroGamerTones sound(arduboy.audio.enabled);
 Sprites sprites;
 
 uint8_t Platform::GetInput()
 {
   uint8_t result = 0;
   
-  if(arduboy.pressed(A_BUTTON))
+  if(arduboy.pressed(X_BUTTON))
   {
     result |= INPUT_A;  
   }
-  if(arduboy.pressed(B_BUTTON))
+  if(arduboy.pressed(Y_BUTTON))
   {
     result |= INPUT_B;  
   }
@@ -48,7 +48,7 @@ void Platform::PlaySound(const uint16_t* audioPattern)
 
 void Platform::SetLED(uint8_t r, uint8_t g, uint8_t b)
 {
-  arduboy.digitalWriteRGB(r ? RGB_ON : RGB_OFF, g ? RGB_ON : RGB_OFF, b ? RGB_ON : RGB_OFF);
+  //arduboy.digitalWriteRGB(r ? RGB_ON : RGB_OFF, g ? RGB_ON : RGB_OFF, b ? RGB_ON : RGB_OFF);
 }
 
 void Platform::PutPixel(uint8_t x, uint8_t y, uint8_t colour)
@@ -165,6 +165,7 @@ void setup()
   arduboy.systemButtons();
   //arduboy.bootLogo();
   arduboy.setFrameRate(TARGET_FRAMERATE);
+  arduboy.enableDoubleBuffer();
 
   //arduboy.audio.off();
   
